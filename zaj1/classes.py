@@ -11,7 +11,7 @@ class Employee:
         self.surname = surname
         self.salary = salary
 
-    def print(self):
+    def show(self):
         print(self.name, self.surname, self.salary)
 
 
@@ -19,7 +19,21 @@ class ReceivedInvoice:
     date = datetime.date(2000, 1, 1)
     amount = 0
 
+    def __init__(self, date: datetime.date, amount: float):
+        self.date = date
+        self.amount = amount
+
+    def show(self):
+        print(self.date, self.amount)
+
 
 class IssuedInvoice:
     date = datetime.date(2000, 1, 1)
     amount = 0
+
+    def __init__(self, date: datetime.date, amount: float):
+        self.date = date
+        self.amount = amount
+
+    def show(self):
+        print(self.date, self.amount)
