@@ -2,10 +2,12 @@ import csv
 import classes
 import array
 import random
+import calendar
 from datetime import datetime, timedelta
 
 
-NUMBER_OF_INVOICES = 100
+
+NUMBER_OF_INVOICES = 10
 
 first_names = ("John", "Andy", "Joe", "Jane", "Mary", "Peter", "Linda")
 last_names = ("Johnson", "Smith", "Williams", "Jones", "Brown", "Taylor", "Thomas")
@@ -25,10 +27,8 @@ with open("employee.csv", "w", newline="") as csvfile:
         )
 
 
-def random_date():
-    start_date = datetime(2022, 1, 1)
-    end_date = datetime(2023, 12, 31)
-    return start_date + timedelta(days=random.randint(0, (end_date - start_date).days))
+def generate_date(x: int) -> datetime.date:
+    return datetime(2022, x, 1).date()
 
 
 # put ReceivedInvoice into a csv
@@ -36,26 +36,30 @@ with open("received.csv", "w", newline="") as csvfile:
     fileReader = csv.writer(
         csvfile, delimiter=" ", quotechar="|", quoting=csv.QUOTE_MINIMAL
     )
+    iter = 2
     for x in range(NUMBER_OF_INVOICES):
         fileReader.writerow(
             [
-                random_date(),
+                generate_date(iter),
                 random.uniform(1000, 3000),
             ]
         )
+        iter += 1
 
 # put IssuedInvoice into a csv
 with open("issued.csv", "w", newline="") as csvfile:
     fileReader = csv.writer(
         csvfile, delimiter=" ", quotechar="|", quoting=csv.QUOTE_MINIMAL
     )
+    iter = 2 
     for x in range(NUMBER_OF_INVOICES):
         fileReader.writerow(
             [
-                random_date(),
-                random.uniform(1000, 3000),
+                generate_date(iter),
+                random.uniform(7000, 10_000),
             ]
         )
+        iter += 1
 
 # read people from a csv
 with open("employee.csv", newline="") as csvfile:
@@ -69,20 +73,31 @@ with open("received.csv", newline="") as csvfile:
     fileReader = csv.reader(csvfile, delimiter=" ", quotechar="|")
     receivedInvoices = []
     for row in fileReader:
-        receivedInvoices.append(classes.ReceivedInvoice(row[0], float(row[1])))
+        receivedInvoices.append(classes.ReceivedInvoice(datetime.strptime(row[0], "%Y-%m-%d"), float(row[1])))
 
 # read IssuedInvoice from a csv
 with open("issued.csv", newline="") as csvfile:
     fileReader = csv.reader(csvfile, delimiter=" ", quotechar="|")
     issuedInvoices = []
     for row in fileReader:
-        issuedInvoices.append(classes.IssuedInvoice(row[0], float(row[1])))
+        issuedInvoices.append(classes.IssuedInvoice(datetime.strptime(row[0], "%Y-%m-%d"), float(row[1])))
 
 
 employmentCost = 0
 
 for person in people:
-    person.show()
     employmentCost += person.salary
 
-print(employmentCost)
+
+# issued invoice +
+# received invoice -
+# salary -
+
+
+budget = []
+print("month    ", "income")
+for i in range(len(issuedInvoices)):
+    budget.append(issuedInvoices[i].amount - receivedInvoices[i].amount - employmentCost)
+    print(calendar.month_name[issuedInvoices[i].date.month-1],":", budget[i])
+
+
