@@ -1,11 +1,9 @@
 import csv
 import classes
-import array
 import random
 import calendar
 from datetime import datetime, timedelta
 import os
-
 
 NUMBER_OF_INVOICES = 10
 DIR = os.path.dirname(__file__)
@@ -33,7 +31,7 @@ with open(join_path("employee.csv"), "w", newline="") as csvfile:
         )
 
 
-def generate_date(x: int) -> datetime.date:
+def generate_date(x: int):
     return datetime(2022, x, 1).date()
 
 
