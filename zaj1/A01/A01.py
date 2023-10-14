@@ -9,7 +9,6 @@ import os
 
 NUMBER_OF_INVOICES = 10
 DIR = os.path.dirname(__file__)
-print(DIR)
 
 first_names = ("John", "Andy", "Joe", "Jane", "Mary", "Peter", "Linda")
 last_names = ("Johnson", "Smith", "Williams", "Jones", "Brown", "Taylor", "Thomas")
