@@ -14,6 +14,5 @@ dictionary = {
     "ser": "cheese",
 }
 
-print("Podaj polskie słowo:")
-word = input()
+word = input("Podaj polskie słowo: ")
 print("Odpowiedz:", dictionary.get(word, "nie znaleziono"))
