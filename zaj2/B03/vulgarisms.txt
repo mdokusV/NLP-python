@@ -1,0 +1,5 @@
+cola
+cat
+dog
+table
+computer

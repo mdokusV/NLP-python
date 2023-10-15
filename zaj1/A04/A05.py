@@ -1,4 +1,3 @@
-from copy import copy
 import os
 from pydoc import text
 
@@ -13,6 +12,8 @@ with open(join_path("letter.txt"), "r", newline="") as file:
     text = file.read()
     file.seek(0)
     text_lines = file.readlines()
+
+print(text_lines)
 
 new_text = ""
 for index, line in enumerate(text_lines):
