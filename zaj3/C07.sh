@@ -1,2 +1,2 @@
 #!/bin/bash
-seq $(wc -l < ./C07.txt) -1 1 | paste -d' ' - ./C07.txt | tac > ./C07_reverse.txt
+seq $(wc -l < ./C07.txt) -1 1 | paste -d' ' - ./C07.txt | tac
