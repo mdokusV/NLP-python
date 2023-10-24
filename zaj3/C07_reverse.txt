@@ -1,0 +1,4 @@
+1 Ford Focus 180
+2 Dacia Logan 140
+3 BMW Mini 160.0
+4 Fiat Punto 130
