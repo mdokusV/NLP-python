@@ -1,4 +1,2 @@
 #!/bin/bash
-read input
-sortednumbers=$(echo $input | tr ' ' '\n' | sort -n -r -u)
-echo $sortednumbers
+cat ./C01.csv | tr ' ' '\n' | sort -n -r -u
