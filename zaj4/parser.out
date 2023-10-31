@@ -1,0 +1,136 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> command
+Rule 1     command -> OPERATE NUMBER article
+Rule 2     attribute -> COLOR
+Rule 3     attribute -> MATERIAL
+Rule 4     attribute -> SIZE
+Rule 5     article -> KIND
+Rule 6     article -> attribute article
+
+Terminals, with rules where they appear
+
+COLOR                : 2
+KIND                 : 5
+MATERIAL             : 3
+NUMBER               : 1
+OPERATE              : 1
+SIZE                 : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+article              : 1 6
+attribute            : 6
+command              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . command
+    (1) command -> . OPERATE NUMBER article
+
+    OPERATE         shift and go to state 2
+
+    command                        shift and go to state 1
+
+state 1
+
+    (0) S' -> command .
+
+
+
+state 2
+
+    (1) command -> OPERATE . NUMBER article
+
+    NUMBER          shift and go to state 3
+
+
+state 3
+
+    (1) command -> OPERATE NUMBER . article
+    (5) article -> . KIND
+    (6) article -> . attribute article
+    (2) attribute -> . COLOR
+    (3) attribute -> . MATERIAL
+    (4) attribute -> . SIZE
+
+    KIND            shift and go to state 5
+    COLOR           shift and go to state 7
+    MATERIAL        shift and go to state 8
+    SIZE            shift and go to state 9
+
+    article                        shift and go to state 4
+    attribute                      shift and go to state 6
+
+state 4
+
+    (1) command -> OPERATE NUMBER article .
+
+    $end            reduce using rule 1 (command -> OPERATE NUMBER article .)
+
+
+state 5
+
+    (5) article -> KIND .
+
+    $end            reduce using rule 5 (article -> KIND .)
+
+
+state 6
+
+    (6) article -> attribute . article
+    (5) article -> . KIND
+    (6) article -> . attribute article
+    (2) attribute -> . COLOR
+    (3) attribute -> . MATERIAL
+    (4) attribute -> . SIZE
+
+    KIND            shift and go to state 5
+    COLOR           shift and go to state 7
+    MATERIAL        shift and go to state 8
+    SIZE            shift and go to state 9
+
+    attribute                      shift and go to state 6
+    article                        shift and go to state 10
+
+state 7
+
+    (2) attribute -> COLOR .
+
+    KIND            reduce using rule 2 (attribute -> COLOR .)
+    COLOR           reduce using rule 2 (attribute -> COLOR .)
+    MATERIAL        reduce using rule 2 (attribute -> COLOR .)
+    SIZE            reduce using rule 2 (attribute -> COLOR .)
+
+
+state 8
+
+    (3) attribute -> MATERIAL .
+
+    KIND            reduce using rule 3 (attribute -> MATERIAL .)
+    COLOR           reduce using rule 3 (attribute -> MATERIAL .)
+    MATERIAL        reduce using rule 3 (attribute -> MATERIAL .)
+    SIZE            reduce using rule 3 (attribute -> MATERIAL .)
+
+
+state 9
+
+    (4) attribute -> SIZE .
+
+    KIND            reduce using rule 4 (attribute -> SIZE .)
+    COLOR           reduce using rule 4 (attribute -> SIZE .)
+    MATERIAL        reduce using rule 4 (attribute -> SIZE .)
+    SIZE            reduce using rule 4 (attribute -> SIZE .)
+
+
+state 10
+
+    (6) article -> attribute article .
+
+    $end            reduce using rule 6 (article -> attribute article .)
+
