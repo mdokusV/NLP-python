@@ -39,7 +39,6 @@ def max_match(sentence, dictionary) -> list[str]:
                 found = True
                 break
         if not found:
-            # If no match is found, consider the current character as a single-character word
             words.append(sentence[i])
             i += 1
     return words
