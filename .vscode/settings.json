@@ -4,7 +4,11 @@
     },
     "python.formatting.provider": "none",
     "cSpell.words": [
-        "csvfile"
+        "astype",
+        "chunksize",
+        "csvfile",
+        "mmapped",
+        "usecols"
     ],
     "python.analysis.typeCheckingMode": "basic"
 }
