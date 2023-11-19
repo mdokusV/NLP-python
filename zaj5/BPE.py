@@ -1,5 +1,4 @@
 import collections
-from typing import Any
 
 
 def generate_vocabulary_1_letter(text):
@@ -50,6 +49,9 @@ def print_vocabulary(vocabulary: collections.Counter):
 
 TEXT = "Politycznych konszachtów, intryg, dotknął końcami bokach cztery rękojeści przy bardzo niskiej Śmiga mówi coś dotknął końcami palców i pomknął bezgłośnie dalej coś w jego stronę palców po rurze, wystarczyć na miesiące? Żywność żalu do Smigi on już raz jeden tylko a za resztę pograłby zwiedzający wnętrze bez przerwy krążyła, było: pewien. Można powiedzieć, się wkuwanie do końcowych egzaminów! Naprzód poleciał wzdłuż rury, zimno gładkiej powierzchni to horyzont epoka wysokich sporów?"
 NUMBER_OF_SUB_WORDS = 2**6
+
+TEXT = input("Enter text: ")
+NUMBER_OF_SUB_WORDS = int(input("Enter number of sub-words: "))
 
 text = remove_punctuation(TEXT)
 
