@@ -7,6 +7,8 @@
         "astype",
         "chunksize",
         "csvfile",
+        "iloc",
+        "iterrows",
         "mmapped",
         "usecols"
     ],

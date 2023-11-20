@@ -159,6 +159,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-zaj5/PoliMorf-0.6.7.tab
+PoliMorf-0.6.7.tab
+small.tab
 
 .VSCodeCounter/
