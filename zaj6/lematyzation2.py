@@ -29,7 +29,7 @@ def read_dictionary(file_path) -> dict[str, tuple[str, str]]:
     return words_dict
 
 
-words_dict = read_dictionary("zaj6/PoliMorf-0.6.7.tab")
+words_dict = read_dictionary("PoliMorf-0.6.7.tab")
 
 input_text = input("Enter word: ")
 
