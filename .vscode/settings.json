@@ -8,8 +8,12 @@
         "chunksize",
         "csvfile",
         "iloc",
+        "IMPT",
         "iterrows",
         "mmapped",
+        "oana",
+        "spacy",
+        "tagset",
         "usecols"
     ],
     "python.analysis.typeCheckingMode": "basic"
