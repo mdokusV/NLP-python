@@ -163,3 +163,7 @@ PoliMorf-0.6.7.tab
 small.tab
 
 .VSCodeCounter/
+data.tsv
+project 1/learning_table.tsv
+project 1/title.basics.tsv/preprocessed.tsv
+project 1/title.basics.tsv/sentiment.tsv

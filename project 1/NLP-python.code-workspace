@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"applymap",
+			"astype",
+			"chunksize",
+			"dropna",
+			"fillna",
+			"pbar",
+			"tconst",
+			"textblob",
+			"tqdm"
+		]
+	}
+}
