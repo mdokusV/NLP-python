@@ -13,11 +13,16 @@
 			"astype",
 			"chunksize",
 			"dropna",
+			"edgecolor",
 			"fillna",
+			"iloc",
+			"isin",
 			"pbar",
 			"tconst",
 			"textblob",
-			"tqdm"
+			"tqdm",
+			"xlabel",
+			"ylabel"
 		]
 	}
 }

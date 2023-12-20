@@ -79,7 +79,7 @@ def process_title_basics() -> pd.DataFrame:
     principals = read_file_status_bar(DATA)
 
     # drop unnecessary columns
-    print(f"Preprocessing TSV: {DATA}...")
+    print(f"Preprocessing TSV: {DATA}")
     principals.drop("endYear", axis=1, inplace=True)
     principals.dropna(inplace=True)
 
@@ -92,10 +92,10 @@ def process_title_basics() -> pd.DataFrame:
         }
     )
 
-    print("Creating new columns for each title type...")
+    print("Creating new columns for each title type")
     principals = pd.get_dummies(principals, columns=["titleType"], dtype=int)
 
-    print("Creating binary columns for each genre...")
+    print("Creating binary columns for each genre")
     genre_dummies = pd.get_dummies(
         principals["genres"].str.split(",", expand=True).stack().str.strip(), dtype=int
     )
@@ -113,10 +113,10 @@ def process_title_basics() -> pd.DataFrame:
         print("Creating new column with sentiment analysis of primaryTitle")
         principals = sentiment_create(principals)
 
-        principals.drop(["primaryTitle", "originalTitle"], axis=1, inplace=True)
+        principals.drop("originalTitle", axis=1, inplace=True)
 
     # save preprocessed principals to file
-    print(f"Saving preprocessed principals to file {PREPROCESSED}...")
+    print(f"Saving preprocessed principals to file {PREPROCESSED}")
     principals.to_csv(PREPROCESSED, sep="\t", index=False)
     print("SAVED!")
     return principals
@@ -127,6 +127,7 @@ def generate_learning_table() -> pd.DataFrame:
     LEARNING_TABLE_FILE = "learning_table.tsv"
     if os.path.exists(LEARNING_TABLE_FILE) and USE_SAVE:
         return read_file_status_bar(LEARNING_TABLE_FILE)
+        
     
     title_basics = process_title_basics()
 
@@ -137,6 +138,11 @@ def generate_learning_table() -> pd.DataFrame:
 
     # DELETE UUID
     all_data.drop("tconst", axis=1, inplace=True)
+    
+    # save titles to different variable
+    titles = all_data["primaryTitle"]
+    all_data.drop("primaryTitle", axis=1, inplace=True)
+    
 
     # scale and normalize data
     print("Scaling and normalizing data")
@@ -147,22 +153,24 @@ def generate_learning_table() -> pd.DataFrame:
         data=scaler.fit_transform(all_data), columns=all_data.columns
     )
     scaled_data["averageRating"] = scores
-    # scaled_data = all_data
+    scaled_data["primaryTitle"] = titles
 
-    print(f"Saving learning table to file {LEARNING_TABLE_FILE}...")
+    print(f"Saving learning table to file {LEARNING_TABLE_FILE}")
     scaled_data.to_csv(LEARNING_TABLE_FILE, sep="\t", index=False)
     print("SAVED!")
-
+    
     return scaled_data
 
 
 learning_table = generate_learning_table()
 
-
+titles = learning_table["primaryTitle"]
+learning_table.drop("primaryTitle", axis=1, inplace=True)
 # ML process
 NUM_FOLDS = 7
 y_param = learning_table["averageRating"]
 x_param = learning_table.drop("averageRating", axis=1)
+
 
 # test scoring
 print("Testing scores")
@@ -177,17 +185,18 @@ score_ridge = cross_val_score(
 )
 print(f"RMSE with ridge: {score_ridge.mean()} +/- {score_ridge.std()}\n")
 
-X_train, X_test, y_train, y_test = train_test_split(x_param, y_param, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test, titles_train, titles_test = train_test_split(x_param, y_param, titles, test_size=0.2, random_state=42)
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
 print("Example scores and predictions")
 for i in range(10):
-    print(f"Actual: {y_test.iloc[i]}, Predicted: {predictions[i]}")
+    print(f"Actual: {y_test.iloc[i]}, Predicted: {predictions[i]}, Title: {titles_test.iloc[i]}")
 
-plt.hist(y_test, bins=10, edgecolor='black')
-plt.hist(predictions, bins=10, edgecolor='red')
+plt.hist(y_test, bins=10, edgecolor='black', label='Actual')
+plt.hist(predictions, bins=10, edgecolor='red', label='Predicted')
 plt.xlabel('Score')
 plt.ylabel('Count')
 plt.title('Score Distribution')
+plt.legend()
 plt.show()
