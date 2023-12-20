@@ -64,7 +64,7 @@ def sentiment_create(principals: pd.DataFrame) -> pd.DataFrame:
             "subjectivity": subjectivity_list,
         }
     )
-    print("Saving sentiment analysis to file...")
+    print("Saving sentiment analysis to file")
     sentiments.to_csv(SENTIMENT_FILE, sep="\t", index=False)
 
     return principals
@@ -165,6 +165,7 @@ y_param = learning_table["averageRating"]
 x_param = learning_table.drop("averageRating", axis=1)
 
 # test scoring
+print("Testing scores")
 kf = KFold(n_splits=NUM_FOLDS, shuffle=True, random_state=42)
 model = make_pipeline(PolynomialFeatures(degree=1), Ridge(alpha=10.0))
 score_ridge = cross_val_score(
@@ -180,8 +181,9 @@ X_train, X_test, y_train, y_test = train_test_split(x_param, y_param, test_size=
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
+print("Example scores and predictions")
 for i in range(10):
-    print(y_test.iloc[i], predictions[i])
+    print(f"Actual: {y_test.iloc[i]}, Predicted: {predictions[i]}")
 
 plt.hist(y_test, bins=10, edgecolor='black')
 plt.hist(predictions, bins=10, edgecolor='red')
